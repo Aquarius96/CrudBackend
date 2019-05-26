@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using CrudBackend.Repositories;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,7 @@ namespace CrudBackend
 
             var connectionString = Configuration["connectionStrings:connectionString"];
             services.AddDbContext<DataContext>(o => o.UseSqlServer(connectionString));
+            services.AddScoped<IPersonRepository, PersonRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,6 +38,12 @@ namespace CrudBackend
             {
                 app.UseHsts();
             }
+
+            app.UseCors(x => x
+               .AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .AllowCredentials());
 
             app.UseHttpsRedirection();
             app.UseMvc();
