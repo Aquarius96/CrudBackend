@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CrudBackend.Data;
+using CrudBackend.Models;
 
 namespace CrudBackend.Repositories
 {
@@ -13,8 +14,15 @@ namespace CrudBackend.Repositories
             _context = context;
         }
 
-        public void Add(Person person)
+        public void Add(AddPersonModel model)
         {
+            var person = new Person
+            {
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Gender = model.Gender,
+                Age = model.Age
+            };
             _context.Persons.Add(person);
             _context.SaveChanges();
         }

@@ -1,4 +1,5 @@
 ﻿using CrudBackend.Data;
+using CrudBackend.Models;
 using CrudBackend.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -32,9 +33,9 @@ namespace CrudBackend.Controllers
 
         // POST: api/Person
         [HttpPost]
-        public IActionResult Post([FromBody] Person person)
+        public IActionResult Post([FromBody] AddPersonModel model)
         {
-            _personRepository.Add(person);
+            _personRepository.Add(model);
             return StatusCode(StatusCodes.Status201Created);
         }        
 
